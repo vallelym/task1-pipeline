@@ -13,7 +13,7 @@ pipeline {
             steps {
                 echo 'Building Docker image...'
                 script {
-                    def app = docker.build("your-docker-image-name")
+                    def app = docker.build("my-flask-app")
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo 'Running Docker container...'
                 script {
-                    docker.image("your-docker-image-name").run('-d -p 80:80')
+                    docker.image("my-flask-app").run('-d -p 80:80')
                 }
             }
         }
