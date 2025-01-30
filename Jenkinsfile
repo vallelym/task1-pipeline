@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/vallelym/task1-pipeline.git'
+                git url: 'https://github.com/vallelym/task1-pipeline.git', branch: 'main'
             }
         }
         stage('Build') {
