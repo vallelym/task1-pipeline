@@ -24,6 +24,30 @@ pipeline {
                 sh 'docker run -d -p 5500:5500 --name my-flask-app my-flask-app:latest'
             }
         }
+        stage('Test') {
+            steps {
+                echo 'Running unit tests...'
+                sh '''
+                cat <<EOF > test_flask_app.py
+                import requests
+                import unittest
+
+                class FlaskAppTests(unittest.TestCase):
+                    BASE_URL = "http://localhost:5500"
+
+                    def test_home_page(self):
+                        response = requests.get(f"{self.BASE_URL}/")
+                        self.assertEqual(response.status_code, 200)
+                        self.assertIn("Hello QA", response.text)
+                        self.assertIn("I'm currently running in", response.text)
+
+                if __name__ == "__main__":
+                    unittest.main()
+                EOF
+                python3 -m unittest test_flask_app.py
+                '''
+            }
+        }
     }
     post {
         always {
