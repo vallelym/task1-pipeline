@@ -71,7 +71,7 @@ pipeline {
             archiveArtifacts artifacts: "trivy-report.json", allowEmptyArchive: true
         }
     }
-}' > Jenkinsfile
+}' >Jenkinsfile
 git add Jenkinsfile
 git commit -m "Update Jenkinsfile with DockerHub push stage"
 git push
